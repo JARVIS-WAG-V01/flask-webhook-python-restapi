@@ -32,21 +32,21 @@ def webhook():
         action=result.get("action")
         par=result.get("contexts").get("parameters")
         if action=="troubleshooting.webhook" :
-       	    troubleshoot(par)
+       	    result=troubleshoot(par)
         if action=="healthcheck" :
-            healthcheck(par)
+            result=healthcheck(par)
         if action=="workinfo.creation" :
-            workinfo(par)
+            result=workinfo(par)
         if action=="predictiveanalysis" :
-            predictiveanalysis(par)
-        weightage=intRegression(req)
+            result=predictiveanalysis(par)
+        
         op={'SESSIONID':sessionId,
             'TIME':req.get("timestamp"),
             'ACTION':action,
             'PARAMETERS':par,
-            'RESOLUTION':result.get("fulfillment").get("speech")
+            'RESOLUTION':result
             }
-            
+           
         
         print(op)
         session = client.session()
@@ -56,7 +56,7 @@ def webhook():
         print(doc)
         #send_data=requests.post(url,data={'key':weightage,'sessionId':sessionId})
        
-        response="*****"
+        response=result
     except:
         response="Sorry Bot has faced an issue! Please try after sometime!"
     
@@ -66,13 +66,19 @@ def webhook():
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
     return r
-   
-de*********f intRegression(req):
+def troubleshoot(par):
+    return "Troubleshooting"
+def healthcheck(par):
+    return "Healthcheck"
+def workinfo(par):
+    return "workinfo"
+def predictiveanalysis(par):
+
     #Machine Learning Model
-    dataset = pd.read_excel("https://github.com/s-gunalan/nWave-Flask-Demo/blob/master/dataset_integration_v2.xlsx?raw=true",skip_header=1)
+    dataset = pd.read_excel("https://github.com/JARVIS-WAG-V01/flask-webhook-python-restapi/blob/master/ML_DATA_V1.xlsx?raw=true",skip_header=1)
     #dataset=pd.read_excel("D:/Guna/POCs/ML/nWave_effort/dataset_integration.xlsx",skip_header=1)
-    Y=dataset.iloc[:, 13:]
-    X=dataset.iloc[:,1:13]
+    Y=dataset.iloc[:, 7:]
+    X=dataset.iloc[:,0:7]
     header=list(X)
     imputer = Imputer()
     dataset = imputer.fit_transform(X)
@@ -80,23 +86,19 @@ de*********f intRegression(req):
     model_int=lr.fit(X,Y)
 
     #Data Processing
-    val=[]
-    result=req.get("result")
-    contexts=result.get("contexts")
-    print(contexts[0])
-    parameters=contexts[0].get("parameters")
-    for i in header:
-        str=parameters.get(i)
-        print("%s %s " %(i,str))
-        val.append(str)
-    ds=pd.DataFrame(val).T
-    print(ds)
+    #result=""
+    #for i in header:
+    #    str=result.get(i)
+    #    print("%s %s " %(i,str))
+    #    val.append(str)
+    #ds=pd.DataFrame(val).T
+    #print(ds)
 
     #Prediction
-    op_lrt=lr.predict(ds)
-    op=round(op_lrt[0][0],2)
-    print(op)
-    return op
+    #op_lrt=lr.predict(ds)
+    #op=op_lrt[0][0],2
+    #print(op)
+    return "Predictive analysis"
 
 
 
