@@ -53,10 +53,15 @@ def troubleshoot(par):
     db = client['esb-data']
     query_ts = cloudant.query.Query(db,selector={"SERVER":SERVER,"APPLICATION":APPLICATION})
     time.sleep(1)
-    result_ts = QueryResult(query_ts)
-    print(result_ts)
+    queryresult_ts = QueryResult(query_ts)
+    print(queryresult_ts)
+    for doc in queryresult_ts:
+        if doc['QUEUE'] is None:
+            print(doc['FLOW_NAME'])
+        else:
+            print(doc['QUEUE'])
     result = SERVER + APPLICATION
-    #details=""
+    #details={}
     #log=client['jarvis-interaction']
     #doc=log.create_document(details)
     #doc.save()
