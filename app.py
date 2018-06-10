@@ -19,15 +19,17 @@ def webhook():
     print(contexts)
     action=result.get("action")
     print(action)
-    resolution = "incomplete action check"
+    par=contexts[0].get("parameters")
+    resolution = "Incomplete"
     if action == "troubleshooting.webhook" :
-        resolution = "Troubleshooting"  
+        troubleshoot(par)
+        resolution = "Troubleshooting complete <br> CPU is"  
     if action == "healthcheck" :
-        resolution = "Healthcheck"
+        resolution = "Healthcheck completed <br> Server "
     if action == "workinfo.creation" :
-        resolution = "Work info"
+        resolution = "Please review the document<br>"
     if action == "predictiveanalysis" :
-        resolution = "Predictive analysis"
+        resolution = "From my predictive analysis, i could observe that <br> None"
     if action == "updateproperties.beta" :
         resolution = "update props"
     
@@ -38,6 +40,12 @@ def webhook():
     r.headers['Content-Type'] = 'application/json'
     return r
 
+def troubleshoot(par):
+    SERVER = par.get("SERVER")
+    APPLICATION = par.get("APPLICATION")
+    result = SERVER + APPLICATION
+    return result
+    
 port = os.getenv('VCAP_APP_PORT', '5000')
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=int(port), use_reloader=True, debug=True)
