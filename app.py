@@ -59,7 +59,7 @@ def webhook():
        
         response=result
     #except:
-        response="Sorry Bot has faced an issue! Please try after sometime!"
+       # response="Sorry Bot has faced an issue! Please try after sometime!"
     
     res= {"speech": response,"displayText": "******","source": "nWave-estimation-chatbot"}
     res = json.dumps(res, indent=4)
