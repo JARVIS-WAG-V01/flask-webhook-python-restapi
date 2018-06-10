@@ -49,7 +49,7 @@ def webhook():
     return r
 
 def troubleshoot(par):
-    return "Troubleshooting func"
+    return "Troubleshooting function"
 
 
    
