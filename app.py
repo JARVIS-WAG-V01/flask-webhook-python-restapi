@@ -26,38 +26,38 @@ app.config['SECRET_KEY']="QWERTYUIOPASDFGHJKLZXCVBNM"
 
 @app.route('/webhook',methods=['POST'])
 def webhook():
-    try:
-        req=request.get_json(silent=True,force=True)
-        sessionId=req.get("sessionId")
-        print(sessionId)
-        result=req.get("result")
-        print(result)
-        action=result.get("action")
-        print(action)
-        par=result.get("contexts").get("parameters")
-        if action=="troubleshooting.webhook" :
-       	    resolution=troubleshoot(par)
-        if action=="healthcheck" :
-            resolution=healthcheck(par)
-        if action=="workinfo.creation" :
-            resolution=workinfo(par)
-        if action=="predictiveanalysis" :
-            resolution=predictiveanalysis(par)
-        print(resolution)
-        op={'SESSIONID':sessionId,
-            'TIME':req.get("timestamp"),
-            'ACTION':action,
-            'PARAMETERS':par,
-            'RESOLUTION':resolution
-            }
-           
+#    try:
+    req=request.get_json(silent=True,force=True)
+    sessionId=req.get("sessionId")
+    print(sessionId)
+    result=req.get("result")
+    print(result)
+    action=result.get("action")
+    print(action)
+    par=result.get("contexts").get("parameters")
+    if action=="troubleshooting.webhook" :
+   	    resolution=troubleshoot(par)
+    if action=="healthcheck" :
+        resolution=healthcheck(par)
+    if action=="workinfo.creation" :
+        resolution=workinfo(par)
+    if action=="predictiveanalysis" :
+        resolution=predictiveanalysis(par)
+    print(resolution)
+    op={'SESSIONID':sessionId,
+        'TIME':req.get("timestamp"),
+        'ACTION':action,
+        'PARAMETERS':par,
+        'RESOLUTION':resolution
+        }
+          
         
-        print(op)
+'''        print(op)
         session = client.session()
         db = client['jarvis-interaction']
         doc= db.create_document(op)
         doc.save()
-        print(doc)
+        print(doc)'''
               
     response="resolution success"
     print(response)
