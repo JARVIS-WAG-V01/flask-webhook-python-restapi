@@ -12,7 +12,8 @@ app=Flask(__name__)
 
 @app.route('/webhook',methods=['POST'])
 def webhook():
-    res={"speech":"webhook succes", "displayText":"webhook success", "source":"jarvis-chatbot"}
+    resolution = "Webhook success"
+    res={"speech":resolution, "displayText":resolution, "source":"jarvis-chatbot"}
     res=json.dumps(res, indent=4)
     print(res)
     r = make_response(res)
