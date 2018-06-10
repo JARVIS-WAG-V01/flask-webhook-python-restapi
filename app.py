@@ -22,14 +22,13 @@ def webhook():
     par=contexts[0].get("parameters")
     resolution = "Incomplete"
     if action == "troubleshooting.webhook" :
-        troubleshoot(par)
-        resolution = "Troubleshooting complete <br> CPU is"  
+        resolution =  troubleshoot(par)
     if action == "healthcheck" :
-        resolution = "Healthcheck completed <br> Server "
+        resolution = healthcheck(par)
     if action == "workinfo.creation" :
-        resolution = "Please review the document<br>"
+        resolution = workinfo(par)
     if action == "predictiveanalysis" :
-        resolution = "From my predictive analysis, i could observe that <br> None"
+        resolution = predictiveanalysis(par)
     if action == "updateproperties.beta" :
         resolution = "update props"
     
@@ -45,6 +44,20 @@ def troubleshoot(par):
     APPLICATION = par.get("APPLICATION")
     result = SERVER + APPLICATION
     return result
+
+def healthcheck(par):
+    SERVER= par.get("SERVER")
+    result = SERVER
+    return result
+
+def workinfo(par):
+    SERVER= par.get("SERVER")
+    TASK= par.get("WORKINFO-TASK")
+    result = SERVER + TASK
+    return result
+    
+def predictiveanalysis(par):
+    return "From my analysis "
     
 port = os.getenv('VCAP_APP_PORT', '5000')
 if __name__ == "__main__":
