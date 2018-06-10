@@ -21,7 +21,15 @@ def webhook():
     print(action)
     resolution = "incomplete action check"
     if action == "troubleshooting.webhook" :
-        resolution = "Action check complete"
+        resolution = "Troubleshooting"  
+    if action == "healthcheck" :
+        resolution = "Healthcheck"
+    if action == "workinfo.creation" :
+        resolution = "Work info"
+    if action == "predictiveanalysis" :
+        resolution = "Predictive analysis"
+    if action == "updateproperties.beta" :
+        resolution = "update props"
     
     res={"speech":resolution, "displayText":resolution, "source":"jarvis-chatbot"}
     res=json.dumps(res, indent=4)
