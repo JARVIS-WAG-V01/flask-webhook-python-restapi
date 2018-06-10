@@ -25,21 +25,19 @@ app.config['SECRET_KEY']="QWERTYUIOPASDFGHJKLZXCVBNM"
 
 @app.route('/webhook',methods=['POST'])
 def webhook():
-    url="https://nwave-ideabot-flask-webhook-p.herokuapp.com/storedata"
-    global output
-    output={}
-    try:
+    #try:
         req=request.get_json(silent=True,force=True)
         sessionId=req.get("sessionId")
         result=req.get("result")
         contexts=result.get("contexts")
         par=contexts[0].get("parameters")
+        resolution=""
         if action=="troubleshooting.webhook" :
             resolution=troubleshoot(par)
         
         response=resolution
-    except:
-        response="Sorry Bot has faced an issue! Please try after sometime!"
+    #except:
+        #response="Sorry Bot has faced an issue! Please try after sometime!"
     
     res= {"speech": response,"displayText": "LOAD-PAGE","source": "nWave-estimation-chatbot"}
     res = json.dumps(res, indent=4)
