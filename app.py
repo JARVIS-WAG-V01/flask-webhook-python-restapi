@@ -7,7 +7,7 @@ from cloudant import Cloudant
 import pandas as pd
 from docx import Document
 from cloudant.error import CloudantException
-from cloudant.result import Result, resultByKey, QueryResult
+from cloudant.result import Result, ResultByKey, QueryResult
 from flask import Flask, request, make_response, render_template, session, g
 
 user= "000d5b69-974a-4f7b-9118-5bcb7aed2484-bluemix"	
