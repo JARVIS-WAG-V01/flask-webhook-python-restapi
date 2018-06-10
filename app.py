@@ -63,8 +63,7 @@ def webhook():
     
     #except:
         #response="Sorry Bot has faced an issue! Please try after sometime!"
-    
-    res= {"speech": "resolution success","displayText":"resolution success","source": "jarvis-chatbot"}
+    res= {"speech": resolution,"displayText":"resolution success","source": "jarvis-chatbot"}
     res = json.dumps(res, indent=4)
     print(res)
     r = make_response(res)
