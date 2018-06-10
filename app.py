@@ -11,7 +11,12 @@ app=Flask(__name__)
 
 @app.route('/webhook',methods=['POST'])
 def webhook():
-    return "Webhook call success"
+    res={"speech":"webhook succes", "displayText":"webhook success", "source":"jarvis-chatbot"}
+    res=json.dumps(res, indent=4)
+    print(res)
+    r = make_response(res)
+    r.header['Content-Type'] = 'application/json'
+    return r
 
 port = os.getenv('VCAP_APP_PORT', '5000')
 if __name__ == "__main__":
