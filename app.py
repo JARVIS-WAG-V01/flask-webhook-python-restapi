@@ -33,19 +33,19 @@ def webhook():
         action=result.get("action")
         par=result.get("contexts").get("parameters")
         if action=="troubleshooting.webhook" :
-       	    result=troubleshoot(par)
+       	    resolution=troubleshoot(par)
         if action=="healthcheck" :
-            result=healthcheck(par)
+            resolution=healthcheck(par)
         if action=="workinfo.creation" :
-            result=workinfo(par)
+            resolution=workinfo(par)
         if action=="predictiveanalysis" :
-            result=predictiveanalysis(par)
+            resolution=predictiveanalysis(par)
         
         op={'SESSIONID':sessionId,
             'TIME':req.get("timestamp"),
             'ACTION':action,
             'PARAMETERS':par,
-            'RESOLUTION':result
+            'RESOLUTION':resolution
             }
            
         
@@ -56,7 +56,7 @@ def webhook():
         doc.save()
         print(doc)
               
-        response=result
+        response=resolution
     except:
         response="Sorry Bot has faced an issue! Please try after sometime!"
     
