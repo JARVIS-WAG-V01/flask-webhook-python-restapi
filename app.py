@@ -1,13 +1,20 @@
 import json
 import requests
 import os
-from flask import Flask, request, make_response, render_template, session, g
 import time
+import cloudant
+from cloudant import Cloudant
+import pandas as pd
+from docx import Document
+from cloudant.error import CloudantException
+from cloudant.result import Result, resultByKey, QueryResult
+from flask import Flask, request, make_response, render_template, session, g
 
 user= "000d5b69-974a-4f7b-9118-5bcb7aed2484-bluemix"	
 password= "ecab228d0b549390a55b708bcfe28f6818e223aa5761dc2628e65859c7211e87"	
 host= "000d5b69-974a-4f7b-9118-5bcb7aed2484-bluemix.cloudant.com"
-
+url = 'https://' + host
+client = Cloudant9user, password, url=url, connect=True)
 app=Flask(__name__)
 
 @app.route('/webhook',methods=['POST'])
