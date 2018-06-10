@@ -29,8 +29,11 @@ def webhook():
     try:
         req=request.get_json(silent=True,force=True)
         sessionId=req.get("sessionId")
+        print(sessionId)
         result=req.get("result")
+        print(result)
         action=result.get("action")
+        print(action)
         par=result.get("contexts").get("parameters")
         if action=="troubleshooting.webhook" :
        	    resolution=troubleshoot(par)
@@ -40,7 +43,7 @@ def webhook():
             resolution=workinfo(par)
         if action=="predictiveanalysis" :
             resolution=predictiveanalysis(par)
-        
+        print(resolution)
         op={'SESSIONID':sessionId,
             'TIME':req.get("timestamp"),
             'ACTION':action,
@@ -57,6 +60,7 @@ def webhook():
         print(doc)
               
     response="resolution success"
+    print(response)
     #except:
         #response="Sorry Bot has faced an issue! Please try after sometime!"
     
