@@ -47,6 +47,11 @@ def webhook():
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
     return r
+
+def troubleshootng(par):
+    return "Troubleshooting func"
+
+
    
 '''def intRegression(req):
     #Machine Learning Model
