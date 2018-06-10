@@ -76,7 +76,17 @@ def workinfo(par):
 def predictiveanalysis(par):
     return "Predictive analysis"
 
-
+def generate_docx(query_res):
+    document = Document("static/template.docx")      
+    for doc in query_res:
+        document.add_heading("CRQ",level=2)
+        document.add_paragraph("SERVER:" + doc['SERVER'])
+        #document.add_paragraph("Queue MANAGER:" + doc['QMGR'])
+    time.sleep(1)
+    document.add_paragraph("")    
+    document.add_paragraph("© Walgreens")
+    document.save("static/workinfo.docx")
+    return document
 
 port = os.getenv('VCAP_APP_PORT', '5000')
 if __name__ == "__main__":
