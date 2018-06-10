@@ -58,8 +58,7 @@ def webhook():
         db = client['jarvis-interaction']
         doc= db.create_document(op)
         doc.save()
-        print(doc)'''
-              
+        print(doc)'''      
     response="resolution success"
     print(response)
     #except:
