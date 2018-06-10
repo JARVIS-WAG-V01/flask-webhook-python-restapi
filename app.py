@@ -57,11 +57,11 @@ def webhook():
         print(doc)
         #send_data=requests.post(url,data={'key':weightage,'sessionId':sessionId})
        
-        response=result
+    #    response=result
     #except:
-       # response="Sorry Bot has faced an issue! Please try after sometime!"
+        response="Sorry Bot has faced an issue! Please try after sometime!"
     
-    res= {"speech": response,"displayText": "******","source": "nWave-estimation-chatbot"}
+    res= {"speech": response,"displayText":response,"source": "nWave-estimation-chatbot"}
     res = json.dumps(res, indent=4)
     print(res)
     r = make_response(res)
