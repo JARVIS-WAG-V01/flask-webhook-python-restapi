@@ -6,7 +6,6 @@ import pandas as pd
 import cloudant
 from cloudant import Cloudant
 from docx import Document
-import time
 from flask import Flask , request, make_response , render_template, session,g
 from sklearn.preprocessing import Imputer
 from sklearn.model_selection import train_test_split
@@ -26,70 +25,61 @@ app.config['SECRET_KEY']="QWERTYUIOPASDFGHJKLZXCVBNM"
 
 @app.route('/webhook',methods=['POST'])
 def webhook():
-#    try:
-    req=request.get_json(silent=True,force=True)
-    sessionId=req.get("sessionId")
-    print(sessionId)
-    result=req.get("result")
-    print(result)
-    action=result.get("action")
-    print(action)
-    context=result.get("contexts")
-    par=context[0].get("parameters")
-    if action=="troubleshooting.webhook" :
-        resolution=troubleshoot(par)
-    if action=="healthcheck" :
-        resolution=healthcheck(par)
-    if action=="workinfo.creation" :
-        resolution=workinfo(par)
-    if action=="predictiveanalysis" :
-        resolution=predictiveanalysis(par)
-    print(resolution)
-    op={'SESSIONID':sessionId,
-        'TIME':req.get("timestamp"),
-        'ACTION':action,
-        'PARAMETERS':par,
-        'RESOLUTION':resolution
-        }
-          
+    url="https://nwave-ideabot-flask-webhook-p.herokuapp.com/storedata"
+    global output
+    output={}
+    try:
+        req=request.get_json(silent=True,force=True)
+        sessionId=req.get("sessionId")
+        result=req.get("result")
+        contexts=result.get("contexts")
+        par=contexts[0].get("parameters")
+        if action=="troubleshooting.webhook" :
+            resolution=troubleshoot(par)
         
-'''        print(op)
-        session = client.session()
-        db = client['jarvis-interaction']
-        doc= db.create_document(op)
-        doc.save()
-        print(doc)'''      
+        response=resolution
+    except:
+        response="Sorry Bot has faced an issue! Please try after sometime!"
     
-    
-    #except:
-        #response="Sorry Bot has faced an issue! Please try after sometime!"
-    res= {"speech": resolution,"displayText":"resolution success","source": "jarvis-chatbot"}
+    res= {"speech": response,"displayText": "LOAD-PAGE","source": "nWave-estimation-chatbot"}
     res = json.dumps(res, indent=4)
     print(res)
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
     return r
-def troubleshoot(par):
-    return "Troubleshooting"
-def healthcheck(par):
-    return "Healthcheck"
-def workinfo(par):    
-    return "workinfo"
-def predictiveanalysis(par):
-    return "Predictive analysis"
+   
+'''def intRegression(req):
+    #Machine Learning Model
+    dataset = pd.read_excel("https://github.com/s-gunalan/nWave-Flask-Demo/blob/master/dataset_integration_v2.xlsx?raw=true",skip_header=1)
+    #dataset=pd.read_excel("D:/Guna/POCs/ML/nWave_effort/dataset_integration.xlsx",skip_header=1)
+    Y=dataset.iloc[:, 13:]
+    X=dataset.iloc[:,1:13]
+    header=list(X)
+    imputer = Imputer()
+    dataset = imputer.fit_transform(X)
+    lr=LinearRegression()
+    model_int=lr.fit(X,Y)
 
-def generate_docx(query_res):
-    document = Document("static/template.docx")      
-    for doc in query_res:
-        document.add_heading("CRQ",level=2)
-        document.add_paragraph("SERVER:" + doc['SERVER'])
-        #document.add_paragraph("Queue MANAGER:" + doc['QMGR'])
-    time.sleep(1)
-    document.add_paragraph("")    
-    document.add_paragraph("© Walgreens")
-    document.save("static/workinfo.docx")
-    return document
+   #Data Processing
+    val=[]
+    result=req.get("result")
+    contexts=result.get("contexts")
+    print(contexts[0])
+    parameters=contexts[0].get("parameters")
+    for i in header:
+        str=parameters.get(i)
+        print("%s %s " %(i,str))
+        val.append(str)
+    ds=pd.DataFrame(val).T
+    print(ds)
+
+    #Prediction
+    op_lrt=lr.predict(ds)
+    op=round(op_lrt[0][0],2)
+    print(op)
+    return op
+'''
 
 port = os.getenv('VCAP_APP_PORT', '5000')
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=int(port), use_reloader=True, debug=True)
+       	app.run(host='0.0.0.0', port=int(port), use_reloader=True, debug=True)
