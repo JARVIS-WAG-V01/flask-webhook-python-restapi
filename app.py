@@ -48,7 +48,7 @@ def webhook():
     r.headers['Content-Type'] = 'application/json'
     return r
 
-def troubleshootng(par):
+def troubleshoot(par):
     return "Troubleshooting func"
 
 
