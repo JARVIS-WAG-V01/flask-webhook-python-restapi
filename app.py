@@ -34,7 +34,8 @@ def webhook():
     print(result)
     action=result.get("action")
     print(action)
-    par=result.get("contexts").get("parameters")
+    context=result.get("contexts")
+    par=context[0].get("parameters")
     if action=="troubleshooting.webhook" :
    	    resolution=troubleshoot(par)
     if action=="healthcheck" :
