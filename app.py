@@ -59,12 +59,12 @@ def webhook():
         doc= db.create_document(op)
         doc.save()
         print(doc)'''      
-    response="resolution success"
-    print(response)
+    
+    
     #except:
         #response="Sorry Bot has faced an issue! Please try after sometime!"
     
-    res= {"speech": response,"displayText":response,"source": "jarvis-chatbot"}
+    res= {"speech": "resolution success","displayText":"resolution success","source": "jarvis-chatbot"}
     res = json.dumps(res, indent=4)
     print(res)
     r = make_response(res)
@@ -87,7 +87,7 @@ def generate_docx(query_res):
         #document.add_paragraph("Queue MANAGER:" + doc['QMGR'])
     time.sleep(1)
     document.add_paragraph("")    
-    document.add_paragraph("© Walgreens")
+    document.add_paragraph("Â© Walgreens")
     document.save("static/workinfo.docx")
     return document
 
