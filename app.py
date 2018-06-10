@@ -56,9 +56,9 @@ def troubleshoot(par):
     queryresult_ts = QueryResult(query_ts)
     print(queryresult_ts)
     for doc in queryresult_ts:
-        if doc['QUEUE'] is None:
+        try:  
             print(doc['FLOW_NAME'])
-        else:
+        except:
             print(doc['QUEUE'])
     result = SERVER + APPLICATION
     #details={}
