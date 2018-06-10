@@ -37,7 +37,7 @@ def webhook():
     context=result.get("contexts")
     par=context[0].get("parameters")
     if action=="troubleshooting.webhook" :
-   	    resolution=troubleshoot(par)
+        resolution=troubleshoot(par)
     if action=="healthcheck" :
         resolution=healthcheck(par)
     if action=="workinfo.creation" :
@@ -93,4 +93,4 @@ def generate_docx(query_res):
 
 port = os.getenv('VCAP_APP_PORT', '5000')
 if __name__ == "__main__":
-       	app.run(host='0.0.0.0', port=int(port), use_reloader=True, debug=True)
+    app.run(host='0.0.0.0', port=int(port), use_reloader=True, debug=True)
