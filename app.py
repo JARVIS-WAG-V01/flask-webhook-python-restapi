@@ -6,6 +6,7 @@ import pandas as pd
 import cloudant
 from cloudant import Cloudant
 from docx import Document
+import time
 from flask import Flask , request, make_response , render_template, session,g
 from sklearn.preprocessing import Imputer
 from sklearn.model_selection import train_test_split
@@ -70,35 +71,9 @@ def troubleshoot(par):
     return "Troubleshooting"
 def healthcheck(par):
     return "Healthcheck"
-def workinfo(par):
-    
+def workinfo(par):    
     return "workinfo"
 def predictiveanalysis(par):
-
-    #Machine Learning Model
-    dataset = pd.read_excel("https://github.com/JARVIS-WAG-V01/flask-webhook-python-restapi/blob/master/ML_DATA_V1.xlsx?raw=true",skip_header=1)
-    #dataset=pd.read_excel("D:/Guna/POCs/ML/nWave_effort/dataset_integration.xlsx",skip_header=1)
-    Y=dataset.iloc[:, 7:]
-    X=dataset.iloc[:,0:7]
-    header=list(X)
-    imputer = Imputer()
-    dataset = imputer.fit_transform(X)
-    lr=LinearRegression()
-    model_int=lr.fit(X,Y)
-
-    #Data Processing
-    #result=""
-    #for i in header:
-    #    str=result.get(i)
-    #    print("%s %s " %(i,str))
-    #    val.append(str)
-    #ds=pd.DataFrame(val).T
-    #print(ds)
-
-    #Prediction
-    #op_lrt=lr.predict(ds)
-    #op=op_lrt[0][0],2
-    #print(op)
     return "Predictive analysis"
 
 
