@@ -51,9 +51,9 @@ def troubleshoot(par):
     APPLICATION = par.get("APPLICATION")
     session = client.session()
     db = client['esb-data']
-    query1 = cloudant.query.Query(db,selector={"SERVER":SERVER,"APPLICATION":APPLICATION})
+    query_ts = cloudant.query.Query(db,selector={"SERVER":SERVER,"APPLICATION":APPLICATION})
     time.sleep(1)
-    result_ts = QueryResult(query)
+    result_ts = QueryResult(query_ts)
     print(result_ts)
     result = SERVER + APPLICATION
     #details=""
