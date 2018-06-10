@@ -26,7 +26,7 @@ app.config['SECRET_KEY']="QWERTYUIOPASDFGHJKLZXCVBNM"
 
 @app.route('/webhook',methods=['POST'])
 def webhook():
-    try:
+   # try:
         req=request.get_json(silent=True,force=True)
         sessionId=req.get("sessionId")
         result=req.get("result")
@@ -61,7 +61,7 @@ def webhook():
     #except:
         response="Sorry Bot has faced an issue! Please try after sometime!"
     
-    res= {"speech": response,"displayText":response,"source": "nWave-estimation-chatbot"}
+    res= {"speech": response,"displayText":response,"source": "jarvis-chatbot"}
     res = json.dumps(res, indent=4)
     print(res)
     r = make_response(res)
