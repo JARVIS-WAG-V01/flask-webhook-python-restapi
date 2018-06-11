@@ -51,15 +51,21 @@ def troubleshoot(par):
     APPLICATION = par.get("APPLICATION")
     session = client.session()
     db = client['esb-data']
-    query_ts = cloudant.query.Query(db,selector={"SERVER":SERVER,"APPLICATION":APPLICATION})
-    time.sleep(1)
-    queryresult_ts = QueryResult(query_ts)
-    print(queryresult_ts)
-    for doc in queryresult_ts:
-        try:  
-            print(doc['FLOW_NAME'])
-        except:
-            print(doc['QUEUE'])
+    try:
+        query_ts = cloudant.query.Query(db,selector={"SERVER":SERVER})
+        time.sleep(1)
+        queryresult_ts = QueryResult(query_ts)
+        print(queryresult_ts)
+    except:
+        query_ts = cloudant.query.Query(db,selector={"SERVER":SERVER,"APPLICATION":APPLICATION})
+        time.sleep(1)
+        queryresult_ts = QueryResult(query_ts)
+        print(queryresult_ts)
+        for doc in queryresult_ts:
+            try:
+                print(doc['FLOW_NAME'])
+            except:
+                print(doc['QUEUE'])            
     result = SERVER + APPLICATION
     #details={}
     #log=client['jarvis-interaction']
