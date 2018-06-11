@@ -87,7 +87,7 @@ def healthcheck(par):
     query_hc = cloudant.query.Query(db,selector={"SERVER":SERVER})
     time.sleep(1)
     queryresult_hc = QueryResult(query_hc)
-    for doc in queryresult_hc
+    for doc in queryresult_hc:
         try:
             print(doc["BROKER"])
         except:
