@@ -16,6 +16,14 @@ host= "000d5b69-974a-4f7b-9118-5bcb7aed2484-bluemix.cloudant.com"
 url = 'https://' + host
 client = Cloudant(user, password, url=url, connect=True)
 app=Flask(__name__)
+  
+@app.route('/docx')
+def download_docx():
+    with open("static/workinfo.docx",'rb') as f:
+        body = f.read()
+    response = make_response(body)
+    response.headers["Content-Disposition"] = "attachment; filename= workinfo.docx"
+    return response
 
 @app.route('/webhook',methods=['POST'])
 def webhook():
@@ -106,13 +114,6 @@ def generate_docx(query_res):
     document.add_paragraph("Step 2", style = 'ListNumber')
     document.save("static/workinfo.docx")
 
-@app.route('/docx')
-def download_docx():
-    with open("static/workinfo.docx",'rb') as f:
-        body = f.read()
-    response = make_response(body)
-    response.headers["Content-Disposition"] = "attachment; filename= JARVIS_WorkInfo.docx"
-    return response
 
 port = os.getenv('VCAP_APP_PORT', '5000')
 if __name__ == "__main__":
