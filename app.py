@@ -84,6 +84,8 @@ def troubleshoot(par):
 def healthcheck(par):
     SERVER= par.get("SERVER")
     result = SERVER
+    session=client.session()
+    db=client['esb-data']
     query_hc = cloudant.query.Query(db,selector={"SERVER":SERVER})
     time.sleep(1)
     queryresult_hc = QueryResult(query_hc)
