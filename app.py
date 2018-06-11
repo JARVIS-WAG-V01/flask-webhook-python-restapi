@@ -76,17 +76,44 @@ def troubleshoot(par):
 def healthcheck(par):
     SERVER= par.get("SERVER")
     result = SERVER
+    query_hc = cloudant.query.Query(db,selector={"SERVER":SERVER})
+    time.sleep(1)
+    queryresult_hc = QueryResult(query_hc)
+    for doc in queryresult_hc
+        try:
+            print(doc["BROKER"])
+        except:
+            print(doc["QMGR"])
     return result
 
 def workinfo(par):
     SERVER= par.get("SERVER")
     TASK= par.get("WORKINFO-TASK")
+    generate_docx(SERVER)
     result = SERVER + TASK
     return result
     
 def predictiveanalysis(par):
     return "From my analysis "
-    
+
+def generate_docx(query_res):
+    document = Document("static/template.docx")
+    document.add_heading("CRQ Details:")
+    document.add_paragraph("CRQ Number: ")
+    document.add_heading("Task Details:")
+    document.add_paragraph("Task:")
+    document.add_paragraph("Step 1", style = 'ListNumber')
+    document.add_paragraph("Step 2", style = 'ListNumber')
+    document.save("static/workinfo.docx")
+
+@app.route('/docx')
+def download_docx():
+    with open("static/workinfo.docx",'rb') as f:
+        body = f.read()
+    response = make_response(body)
+    response.headers["Content-Disposition"] = "attachment; filename= JARVIS_WorkInfo.docx"
+    return response
+
 port = os.getenv('VCAP_APP_PORT', '5000')
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=int(port), use_reloader=True, debug=True)
