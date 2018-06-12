@@ -93,7 +93,7 @@ def healthcheck(par):
         print(doc["SERVER"]+" has CPU:"+str(doc["CPU"])+" and Memory:"+str(doc["MEMORY"]))
         print(doc["QMGR"]+" is "+doc["QM_STATUS"]+" and" + doc["CLUSTER_STATUS"] + " in the Cluster")
         print("Listener port :"+str(doc["LISTENER"])+" is "+doc["LISTENER_STATUS"])
-        result_tmp = doc["SERVER"]+" has CPU:"+str(doc["CPU"])+" and Memory:"+str(doc["MEMORY"]) + doc["QMGR"]+" is "+doc["QM_STATUS"]+" and" + doc["CLUSTER_STATUS"] + " in the Cluster" + "Listener port :"+str(doc["LISTENER"])+" is "+doc["LISTENER_STATUS"]
+        result_tmp = doc["SERVER"]+" is " + doc["CLUSTER_STATUS"] + " in the Cluster<br>"+"with CPU:"+str(doc["CPU"])+" and Memory:"+str(doc["MEMORY"]) + "<br>Broker/QMGR: "+doc["QMGR"]+" is "+doc["QM_STATUS"] + " with Listener port :"+str(doc["LISTENER"])+" is "+doc["LISTENER_STATUS"]
     return result_tmp
 
 def workinfo(par):
