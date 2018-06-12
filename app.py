@@ -121,10 +121,12 @@ def predictiveanalysis(par):
 
 def generate_docx(SERVER,TASK,CRQ):
     document = Document("static/template.docx")
-    document.add_heading("CRQ Details:" + )
-    document.add_paragraph("CRQ Number: "CRQ)
+    document.add_heading("CRQ Details:")
+    document.add_paragraph("CRQ Number: "+CRQ)
+    document.add_paragraph("Implementation Team: ESB 2L")
     document.add_heading("Task Details:")
     document.add_paragraph("Task:"+TASK)
+    document.add_paragraph("SERVER:"+SERVER)
     if(TASK=="VALIDATION"):
         document.add_paragraph("Validation Step 1", style = 'ListNumber')
         document.add_paragraph("Validation Step 2", style = 'ListNumber')
