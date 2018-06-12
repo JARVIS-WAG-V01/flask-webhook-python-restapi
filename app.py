@@ -100,8 +100,8 @@ def workinfo(par):
     SERVER= par.get("SERVER")
     TASK= par.get("WORKINFO-TASK")
     generate_docx(SERVER)
-    result = SERVER + TASK
-    return result
+    link="Please download below document<br><a href="https://jarvis-walgreens-webhook.herokuapp.com/docx" class="btn btn-primary">DOWNLOAD</a>"
+    return link
     
 def predictiveanalysis(par):
     session=client.session()
@@ -119,14 +119,29 @@ def predictiveanalysis(par):
                 
     return "From my analysis "
 
-def generate_docx(SERVER):
+def generate_docx(SERVER,TASK,CRQ):
     document = Document("static/template.docx")
-    document.add_heading("CRQ Details:" + SERVER)
-    document.add_paragraph("CRQ Number: ")
+    document.add_heading("CRQ Details:" + )
+    document.add_paragraph("CRQ Number: "CRQ)
     document.add_heading("Task Details:")
-    document.add_paragraph("Task:")
-    document.add_paragraph("Step 1", style = 'ListNumber')
-    document.add_paragraph("Step 2", style = 'ListNumber')
+    document.add_paragraph("Task:"+TASK)
+    if(TASK=="VALIDATION"):
+        document.add_paragraph("Validation Step 1", style = 'ListNumber')
+        document.add_paragraph("Validation Step 2", style = 'ListNumber')
+        document.add_paragraph("Validation Step 3", style = 'ListNumber')
+        document.add_paragraph("Validation Step 4", style = 'ListNumber')
+    if(TASK=="BOUNCEMQ"):
+        document.add_paragraph("Stop MQ services", style = 'ListNumber')
+        document.add_paragraph("Check all MQ processes are down", style = 'ListNumber')
+        document.add_paragraph("Start MQ services", style = 'ListNumber')
+        document.add_paragraph("Check all MQ processes are UP and RUNNING", style = 'ListNumber')
+    document.add_paragraph("Step 2:", style = 'ListNumber')
+    if(TASK=="BOUNCEMB"):
+        document.add_paragraph("Stop MB services", style = 'ListNumber')
+        document.add_paragraph("Check all MB processes are down", style = 'ListNumber')
+        document.add_paragraph("Start MB services", style = 'ListNumber')
+        document.add_paragraph("Check all MB processes are UP and RUNNING", style = 'ListNumber')
+    document.add_paragraph("Final Step", style = 'ListNumber')
     document.save("static/workinfo.docx")
 
 
