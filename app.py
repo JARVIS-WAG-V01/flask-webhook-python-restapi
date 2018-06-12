@@ -65,15 +65,15 @@ def troubleshoot(par):
         queryresult_ts = QueryResult(query_ts)
         print(queryresult_ts)
     except:
-        query_ts = cloudant.query.Query(db,selector={"SERVER":SERVER,"APPLICATION":APPLICATION})
+        query_ts = cloudant.query.Query(db,selector={"SERVER":SERVER,"APPLICATION":APPLICATION,"$or": [{"GET": "DISABLED"},{"PUT": "DISABLED"},{"CURDEPTH": {"$gt": 4000}},{"IP_PROCS": {"$gt": 0}},{"OP_PROCS": {"$gt": 0}},{"CH_STATUS": "STOPPED"},{"EG_STATUS": "RUNNING"},{"FLOW_STATUS": "RUNNING"},{"MSG_INSTANCES": {"$gt": 25}}]})
         time.sleep(1)
         queryresult_ts = QueryResult(query_ts)
         print(queryresult_ts)
         for doc in queryresult_ts:
             try:
-                print(doc['FLOW_NAME'])
+                print("ISSUE WITH "+doc['FLOW_NAME'])
             except:
-                print(doc['QUEUE'])            
+                print("ISSUE WITH "+doc['QUEUE'])            
     result = SERVER + APPLICATION
     #details={}
     #log=client['jarvis-interaction']
