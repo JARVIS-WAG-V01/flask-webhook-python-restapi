@@ -90,14 +90,9 @@ def healthcheck(par):
     time.sleep(1)
     queryresult_hc = QueryResult(query_hc)
     for doc in queryresult_hc:
-        print(doc["SERVER"])
-        print(doc["CPU"])
-        print(doc["MEMORY"])
-        print(doc["QMGR"])
-        print(doc["QM_STATUS"])
-        print(doc["CLUSTER_STATUS"])
-        print(doc["LISTENER"])
-        print(doc["LISTENER_STATUS"])
+        print(doc["SERVER"]+" has CPU:"+doc["CPU"]+" and Memory:"+doc["MEMORY"])
+        print(doc["QMGR"]+" is "+doc["QM_STATUS"]+" and" + doc["CLUSTER_STATUS"] + " in the Cluster")
+        print("Listener port :"+doc["LISTENER"]+" is "+doc["LISTENER_STATUS"])
     return result
 
 def workinfo(par):
