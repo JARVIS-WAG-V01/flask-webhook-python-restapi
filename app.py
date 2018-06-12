@@ -99,7 +99,8 @@ def healthcheck(par):
 def workinfo(par):
     SERVER= par.get("SERVER")
     TASK= par.get("WORKINFO-TASK")
-    generate_docx(SERVER)
+    CRQ=par.get("CRQ")
+    generate_docx(SERVER,TASK,CRQ)
     link="Please download below<br><a href=\"https://jarvis-walgreens-webhook.herokuapp.com/docx\" class=\"btn btn-primary\">DOWNLOAD</a>"
     return link
     
