@@ -104,11 +104,24 @@ def workinfo(par):
     return result
     
 def predictiveanalysis(par):
+    session=client.session()
+    db=client['esb-data']
+    query_pa_o1 = cloudant.query.Query(db,selector={"CPU":{"$gt":0}})
+    time.sleep(1)
+    for doc in query_pa_o1:
+      SERVER = doc["SERVER"]
+      print(SERVER)
+      query_pa_o2 = cloudant.query.Query(db,selector={"SERVER":SERVER})
+      time.sleep(1)
+      for doc in query_pa_i1:
+        print(doc["CPU"])
+        print(doc["Memory"])
+                
     return "From my analysis "
 
-def generate_docx(query_res):
+def generate_docx(SERVER):
     document = Document("static/template.docx")
-    document.add_heading("CRQ Details:")
+    document.add_heading("CRQ Details:" + SERVER)
     document.add_paragraph("CRQ Number: ")
     document.add_heading("Task Details:")
     document.add_paragraph("Task:")
