@@ -86,14 +86,18 @@ def healthcheck(par):
     result = SERVER
     session=client.session()
     db=client['esb-data']
-    query_hc = cloudant.query.Query(db,selector={"SERVER":SERVER})
+    query_hc = cloudant.query.Query(db,selector={"SERVER":SERVER,"CPU":{"$gt":0}})
     time.sleep(1)
     queryresult_hc = QueryResult(query_hc)
     for doc in queryresult_hc:
-        try:
-            print(doc["BROKER"])
-        except:
-            print(doc["QMGR"])
+        print(doc["SERVER"])
+        print(doc["CPU"])
+        print(doc["MEMORY"])
+        print(doc["QMGR"])
+        print(doc["QM_STATUS"])
+        print(doc["CLUSTER_STATUS"])
+        print(doc["LISTENER"])
+        print(doc["LISTENER_STATUS"])
     return result
 
 def workinfo(par):
