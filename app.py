@@ -59,21 +59,15 @@ def troubleshoot(par):
     APPLICATION = par.get("APPLICATION")
     session = client.session()
     db = client['esb-data']
-    try:
-        query_ts = cloudant.query.Query(db,selector={"SERVER":SERVER})
-        time.sleep(1)
-        queryresult_ts = QueryResult(query_ts)
-        print(queryresult_ts)
-    except:
-        query_ts = cloudant.query.Query(db,selector={"SERVER":SERVER,"APPLICATION":APPLICATION,"$or": [{"GET": "DISABLED"},{"PUT": "DISABLED"},{"CURDEPTH": {"$gt": 4000}},{"IP_PROCS": {"$gt": 0}},{"OP_PROCS": {"$gt": 0}},{"CH_STATUS": "STOPPED"},{"EG_STATUS": "RUNNING"},{"FLOW_STATUS": "RUNNING"},{"MSG_INSTANCES": {"$gt": 25}}]})
-        time.sleep(1)
-        queryresult_ts = QueryResult(query_ts)
-        print(queryresult_ts)
-        for doc in queryresult_ts:
-            try:
-                print("ISSUE WITH "+doc['FLOW_NAME'])
-            except:
-                print("ISSUE WITH "+doc['QUEUE'])            
+    query_ts = cloudant.query.Query(db,selector={"SERVER":SERVER,"APPLICATION":APPLICATION,"$or": [{"GET": "DISABLED"},{"PUT": "DISABLED"},{"CURDEPTH": {"$gt": 4000}},{"IP_PROCS": {"$gt": 0}},{"OP_PROCS": {"$gt": 0}},{"CH_STATUS": "STOPPED"},{"EG_STATUS": "RUNNING"},{"FLOW_STATUS": "RUNNING"},{"MSG_INSTANCES": {"$gt": 25}}]})
+    time.sleep(1)
+    queryresult_ts = QueryResult(query_ts)
+    print(queryresult_ts)
+    for doc in queryresult_ts:
+        try:
+            print("ISSUE WITH "+doc['FLOW_NAME'])
+        except:
+            print("ISSUE WITH "+doc['QUEUE'])            
     result = SERVER + APPLICATION
     #details={}
     #log=client['jarvis-interaction']
@@ -118,7 +112,7 @@ def predictiveanalysis(par):
         print(doc["CPU"])
         print(doc["Memory"])
                 
-    return "From my analysis "
+    return "From my analysis there seems to be no issues as of now"
 
 def generate_docx(SERVER,TASK,CRQ):
     document = Document("static/template.docx")
