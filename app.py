@@ -65,11 +65,11 @@ def troubleshoot(par):
     #print(queryresult_ts)
     for doc in queryresult_ts:
         try:
-            print("ISSUE WITH "+doc['FLOW_NAME'])
-            print(doc)
+            issue="ISSUE WITH "+doc['FLOW_NAME']
+            details=str(doc)
         except:
-            print("ISSUE WITH "+doc['QUEUE'])
-            print(doc)
+            issue="ISSUE WITH "+doc['QUEUE']
+            details=str(doc)
     result = SERVER + APPLICATION
     #details={}
     #log=client['jarvis-interaction']
