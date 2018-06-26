@@ -65,7 +65,7 @@ def troubleshoot(par):
     print(queryresult_ts)
     for doc in queryresult_ts:
         try:
-            print("ISSUE WITH "+doc['FLOW_NAME']: + doc)
+            print("ISSUE WITH "+doc['FLOW_NAME'] + doc)
         except:
             print("ISSUE WITH "+doc['QUEUE'] + doc)            
     result = SERVER + APPLICATION
