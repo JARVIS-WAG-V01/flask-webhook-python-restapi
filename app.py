@@ -70,7 +70,7 @@ def troubleshoot(par):
         except:
             issue="ISSUE WITH "+doc['QUEUE']
             details=str(doc)
-    result = SERVER + APPLICATION
+    result = issue + details
     #details={}
     #log=client['jarvis-interaction']
     #doc=log.create_document(details)
