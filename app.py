@@ -107,14 +107,14 @@ def predictiveanalysis(par):
     query_result = QueryResult(query_pa_o1)
     health_report(query_result)
     time.sleep(1)
-    for doc in query_pa_o1:
+    '''for doc in query_pa_o1:
       SERVER = doc["SERVER"]
       print(SERVER)
       query_pa_o2 = cloudant.query.Query(db,selector={"SERVER":SERVER})
       time.sleep(1)
       for doc in query_pa_i1:
         print(doc["CPU"])
-        print(doc["Memory"])
+        print(doc["Memory"])'''
                 
     return "From my analysis there seems to be no issues as of now"
 
