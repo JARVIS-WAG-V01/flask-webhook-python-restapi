@@ -25,6 +25,14 @@ def download_docx():
     response.headers["Content-Disposition"] = "attachment; filename= workinfo.docx"
     return response
 
+@app.route('/HCdocx')
+def download_docx():
+    with open("static/HEALTHCHECK.docx",'rb') as f:
+        body = f.read()
+    response = make_response(body)
+    response.headers["Content-Disposition"] = "attachment; filename= workinfo.docx"
+    return response   
+
 @app.route('/webhook',methods=['POST'])
 def webhook():
     req= request.get_json(silent=True, force=True)
