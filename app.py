@@ -26,7 +26,7 @@ def download_docx():
     return response
 
 @app.route('/HCdocx')
-def download_docx():
+def download_HCdocx():
     with open("static/HEALTHCHECK.docx",'rb') as f:
         body = f.read()
     response = make_response(body)
