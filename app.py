@@ -104,7 +104,8 @@ def predictiveanalysis(par):
     session=client.session()
     db=client['esb-data']
     query_pa_o1 = cloudant.query.Query(db,selector={"CPU":{"$gt":0}})
-    health_report(query_pa_o1)
+    query_result = QueryResult(query_pa_o1)
+    health_report(query_result)
     time.sleep(1)
     for doc in query_pa_o1:
       SERVER = doc["SERVER"]
@@ -166,12 +167,12 @@ def health_report(QUERY_RES):
     for doc in QUERY_RES:
         row_cells = table.add_row().cells
         row_cells[0].text = doc['SERVER']
-        row_cells[1].text = doc['CPU']
-        row_cells[2].text = doc['MEMORY']
+        row_cells[1].text = str(doc['CPU'])
+        row_cells[2].text = str(doc['MEMORY'])
         row_cells[3].text = doc['QMGR']
         row_cells[4].text = doc['QM_STATUS']
         row_cells[5].text = doc['CLUSTER_STATUS']
-        row_cells[6].text = doc['LISTENER']
+        row_cells[6].text = str(doc['LISTENER'])
         row_cells[7].text = doc['LISTENER_STATUS']
     document.save("static/HEALTHCHECK.docx")
 
