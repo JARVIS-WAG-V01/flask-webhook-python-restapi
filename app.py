@@ -154,6 +154,7 @@ def health_report(QUERY_RES):
     document = Document("static/template.docx")
     document.add_heading("Health check Report:")
     table = document.add_table(rows=1, cols=8, style = 'TableGrid')
+    hdr_cells = table.rows[0].cells
     hdr_cells[0].text = 'SERVER'
     hdr_cells[1].text = 'CPU'
     hdr_cells[2].text = 'MEMORY'
