@@ -52,6 +52,8 @@ def webhook():
         resolution = workinfo(par)
     if action == "predictiveanalysis" :
         resolution = predictiveanalysis(par)
+    if action == "dailyreport" :
+        resolution = dailyreport(par)
     if action == "updateproperties.beta" :
         resolution = "update props"
     
@@ -105,9 +107,18 @@ def workinfo(par):
     TASK= par.get("WORKINFO-TASK")
     CRQ=str(par.get("CRQ"))
     generate_docx(SERVER,TASK,CRQ)
-    link="Please download below<br><a href=\"https://jarvis-walgreens-webhook.herokuapp.com/docx\" class=\"btn btn-primary\">DOWNLOAD</a>"
+    link="Please download workinfo document below<br><a href=\"https://jarvis-walgreens-webhook.herokuapp.com/docx\" class=\"btn btn-primary\">DOWNLOAD</a>"
     return link
-    
+
+def dailyreport(par):
+    session=client.session()
+    db=client['esb-data']
+    query_pa_o1 = cloudant.query.Query(db,selector={"CPU":{"$gt":0}})
+    query_result = QueryResult(query_pa_o1)
+    health_report(query_result)
+    link="Please download daily report below<br><a href=\"https://jarvis-walgreens-webhook.herokuapp.com/HCdocx" class=\"btn btn-primary\">DOWNLOAD</a>"
+    return link
+  
 def predictiveanalysis(par):
     session=client.session()
     db=client['esb-data']
