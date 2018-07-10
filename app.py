@@ -116,7 +116,7 @@ def dailyreport(par):
     query_pa_o1 = cloudant.query.Query(db,selector={"CPU":{"$gt":0}})
     query_result = QueryResult(query_pa_o1)
     health_report(query_result)
-    link="Please download daily report below<br><a href=\"https://jarvis-walgreens-webhook.herokuapp.com/HCdocx" class=\"btn btn-primary\">DOWNLOAD</a>"
+    link="Please download daily report for today below<br><a href=\"https://jarvis-walgreens-webhook.herokuapp.com/HCdocx" class=\"btn btn-primary\">DOWNLOAD</a>"
     return link
   
 def predictiveanalysis(par):
