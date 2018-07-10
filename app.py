@@ -22,7 +22,7 @@ def download_docx():
     with open("static/workinfo.docx",'rb') as f:
         body = f.read()
     response = make_response(body)
-    response.headers["Content-Disposition"] = "attachment; filename= workinfo.docx"
+    response.headers["Content-Disposition"] = "attachment; filename= JARVIS_WORKINFO.docx"
     return response
 
 @app.route('/HCdocx')
@@ -30,7 +30,7 @@ def download_HCdocx():
     with open("static/HEALTHCHECK.docx",'rb') as f:
         body = f.read()
     response = make_response(body)
-    response.headers["Content-Disposition"] = "attachment; filename= workinfo.docx"
+    response.headers["Content-Disposition"] = "attachment; filename= JARVIS_DAILYREPORT.docx"
     return response   
 
 @app.route('/webhook',methods=['POST'])
@@ -43,7 +43,7 @@ def webhook():
     action=result.get("action")
     print(action)
     par=contexts[0].get("parameters")
-    resolution = "Incomplete"
+    resolution = "Sorry! JARVIS faced some technical issue! Please try again later"
     if action == "troubleshooting.webhook" :
         resolution =  troubleshoot(par)
     if action == "healthcheck" :
@@ -80,11 +80,11 @@ def troubleshoot(par):
         except:
             issue="ISSUE WITH "+doc['QUEUE']
             details=str(doc)
-    result = issue + details
-    #details={}
-    #log=client['jarvis-interaction']
-    #doc=log.create_document(details)
-    #doc.save()
+    result = issue + "<br>" + details
+    details={}
+    logdb=client['jarvis-interaction']
+    doc=logdb.create_document(details)
+    doc.save()
     return result
 
 def healthcheck(par):
