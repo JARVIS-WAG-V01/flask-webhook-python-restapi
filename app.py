@@ -3,7 +3,6 @@ import requests
 import os
 import time
 import cloudant
-import smtplib
 from cloudant import Cloudant
 import pandas as pd
 from docx import Document
@@ -109,12 +108,6 @@ def workinfo(par):
     CRQ=str(par.get("CRQ"))
     generate_docx(SERVER,TASK,CRQ)
     link="Please download workinfo document below<br><a href=\"https://jarvis-walgreens-webhook.herokuapp.com/docx\" class=\"btn btn-primary\">DOWNLOAD</a>"
-    server = smtplib.SMTP('smtp.gmail.com', 587)
-    server.starttls()
-    server.login("rakeshmoha91@gmail.com", "goodmorningrakesh").
-    msg = "Test Message!"
-    server.sendmail("rakeshmoha91@gmail.com", "formymailcontact@gmail.com", msg)
-    server.quit()
     return link
 
 def dailyreport(par):
